@@ -42,6 +42,6 @@ Successfully renamed core 53ff73065075582132181487 to new_name
 
 ## Thanks
 
-- To @Mitchellh for his [cli](http://github.com/mitchellh/cli) package
-- To @armon for a well documented example of the cli package
-- To @google for [go-github](https://github.com/google/go-github) from which the spark client is heavily inspired.
+- To [@Mitchellh](https://github.com/mitchellh) for his [cli](https://github.com/mitchellh/cli) package
+- To [@armon](https://github.com/armon) for a well documented [example](https://github.com/hashicorp/consul) package of the cli package
+- To [@google](https://github.com/google) package for [go-github](https://github.com/google/go-github) from which the spark client is heavily inspired.
