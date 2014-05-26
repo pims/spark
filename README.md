@@ -38,3 +38,10 @@ Successfully renamed core 53ff73065075582132181487 to new_name
 - add version
 - add tests
 - document the spark API endpoints
+
+
+## Thanks
+
+- To @Mitchellh for his [cli](http://github.com/mitchellh/cli) package
+- To @armon for a well documented example of the cli package
+- To @google for [go-github](https://github.com/google/go-github) from which the spark client is heavily inspired.
