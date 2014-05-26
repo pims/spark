@@ -1,6 +1,6 @@
 # Spark
 
-This is a go CLI wrapper to the [spark.io](https://www.spark.io)
+This is a go wrapper (CLI + API client)  to the [spark.io](https://www.spark.io) API.
 
 
 ## Why another incomplete CLI?
@@ -35,6 +35,6 @@ Successfully renamed core 53ff73065075582132181487 to new_name
 
 
 ## TODO
-
+- add version
 - add tests
 - document the spark API endpoints
