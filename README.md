@@ -11,7 +11,7 @@ This CLI aims to eventually be a full replacement for spark-cli.
 
 ## Example usage
 
-```
+```sh
 $ spark
 usage: spark [--help] <command> [<args>]
 
@@ -28,7 +28,7 @@ Available commands are:
 
 For example, to rename your core:
 
-```
+```sh
 $ spark rename 53ff73065075582132181487 new_name
 Successfully renamed core 53ff73065075582132181487 to new_name
 ```
