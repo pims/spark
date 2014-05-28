@@ -54,7 +54,7 @@ func (c *LoginCommand) Run(args []string) int {
 		return 1
 	}
 
-	err = ioutil.WriteFile(SettingsFileName, []byte(*token.Value), 0755)
+	err = ioutil.WriteFile(SettingsFileName, []byte(token.Value), 0755)
 	if err != nil {
 		c.Ui.Error(fmt.Sprintf("Error persisting token to file: %s", err))
 		return 1

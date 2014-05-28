@@ -12,23 +12,23 @@ type TokensService struct {
 }
 
 type Token struct {
-	Token     *string `json:"token"`
-	ExpiresAt *string `json:"expires_at"`
-	Client    *string `json:"client"`
+	Token     string `json:"token"`
+	ExpiresAt string `json:"expires_at"`
+	Client    string `json:"client"`
 }
 
 type AccessToken struct {
-	Value     *string `json:"access_token,omitempty"`
-	Type      *string `json:"token_type,omitempty"`
-	ExpiresIn *uint32 `json:"expires_in,omitempty"`
+	Value     string `json:"access_token,omitempty"`
+	Type      string `json:"token_type,omitempty"`
+	ExpiresIn uint32 `json:"expires_in,omitempty"`
 }
 
 func (a AccessToken) String() string {
-	return fmt.Sprintf("AccessToken{%v, %v, %v}", *a.Value, *a.Type, *a.ExpiresIn)
+	return fmt.Sprintf("AccessToken{%s, %s, %s}", a.Value, a.Type, a.ExpiresIn)
 }
 
 func (t Token) String() string {
-	return fmt.Sprintf("Token{token: %v, expires_at: %v, client: %v}", *t.Token, *t.ExpiresAt, *t.Client)
+	return fmt.Sprintf("Token{token: %s, expires_at: %s, client: %s}", t.Token, t.ExpiresAt, t.Client)
 }
 
 func (s *TokensService) Login(username, password string) (AccessToken, *http.Response, error) {
