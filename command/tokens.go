@@ -64,5 +64,5 @@ func (c *TokensCommand) Run(args []string) int {
 }
 
 func (c *TokensCommand) Synopsis() string {
-	return "List all access tokens"
+	return "List all access tokens. Requires username/password"
 }
