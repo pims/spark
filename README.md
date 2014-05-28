@@ -9,7 +9,7 @@ The spark team has released [spark-cli](https://github.com/spark/spark-cli/) whi
 This CLI aims to eventually be a full replacement for spark-cli.
 
 
-## Example usage
+## CLI example usage
 
 ```
 $ spark
@@ -46,6 +46,19 @@ $ spark rename 53dd73045076535132181487 new_name
 Successfully renamed core 53dd73045076535132181487 to new_name
 ```
 
+
+## API Client example usage
+
+```go
+
+client := spark.NewClient(nil)
+token, resp, err := client.Tokens.Login(username, password)
+
+devices, resp, err := client.Devices.List()
+resp, err := client.Devices.Claim(coreId)
+
+resp, err := client.Devices.Rename(coreId, new_name)
+```
 
 ## TODO
 - add version
