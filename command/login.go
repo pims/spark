@@ -66,10 +66,10 @@ func (c *LoginCommand) Run(args []string) int {
 		return 1
 	}
 
-	c.Ui.Output(fmt.Sprintf("Token = %v", token))
+	c.Ui.Info(fmt.Sprintf("Successfully logged in. Access token persisted to: ~/%s", SettingsFileName))
 	return 0
 }
 
 func (c *LoginCommand) Synopsis() string {
-	return "Log in spark cloud"
+	return "Log in to spark cloud"
 }
