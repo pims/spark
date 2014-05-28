@@ -66,5 +66,10 @@ func init() {
 				Ui: ui,
 			}, nil
 		},
+		"invalidate": func() (cli.Command, error) {
+			return &command.InvalidateCommand{
+				Ui: ui,
+			}, nil
+		},
 	}
 }
