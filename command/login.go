@@ -16,7 +16,7 @@ type LoginCommand struct {
 
 func (c *LoginCommand) Help() string {
 	helpText := `
-Usage: spark login me@example.com
+Usage: spark login
 
   Retrieves a token from spark cloud and stores it locally
 `
@@ -24,14 +24,20 @@ Usage: spark login me@example.com
 }
 
 func (c *LoginCommand) Run(args []string) int {
-	if len(args) != 2 {
-		c.Ui.Error("A username and a password name must be specified.")
+	if len(args) > 0 {
+		c.Ui.Error("Please enter username and password at the prompt.")
 		c.Ui.Error("")
 		c.Ui.Error(c.Help())
 		return 1
 	}
 
-	username := args[0]
+	username, err := c.Ui.Ask("Username: ")
+
+	if err != nil {
+		c.Ui.Error(fmt.Sprintf("Error reading username from prompt: %s", err))
+		return 1
+	}
+
 	password, err := gopass.GetPass("Password: ")
 
 	if err != nil {
