@@ -49,7 +49,7 @@ Successfully renamed core 53dd73045076535132181487 to new_name
 
 ## API Client example usage
 
-```go
+```golang
 
 client := spark.NewClient(nil)
 token, resp, err := client.Tokens.Login(username, password)
