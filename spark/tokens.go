@@ -24,7 +24,7 @@ type AccessToken struct {
 }
 
 func (a AccessToken) String() string {
-	return fmt.Sprintf("AccessToken{%s, %s, %s}", a.Value, a.Type, a.ExpiresIn)
+	return fmt.Sprintf("AccessToken{%s, %s, %d}", a.Value, a.Type, a.ExpiresIn)
 }
 
 func (t Token) String() string {
