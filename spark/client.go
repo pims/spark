@@ -12,8 +12,10 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 const (
@@ -46,8 +48,21 @@ type SparkClient struct {
 // for you (such as that provided by the goauth2 library).
 func NewClient(httpClient *http.Client) *SparkClient {
 	if httpClient == nil {
-		httpClient = http.DefaultClient
+		httpClient = &http.Client{
+			Transport: &http.Transport{
+				Dial: func(network, addr string) (net.Conn, error) {
+					timeout := time.Duration(5 * time.Second)
+					conn, err := net.DialTimeout(network, addr, timeout)
+					if err != nil {
+						return nil, err
+					}
+					conn.SetDeadline(time.Now().Add(timeout))
+					return conn, nil
+				},
+			},
+		}
 	}
+
 	baseURL, _ := url.Parse(defaultBaseURL)
 
 	c := &SparkClient{client: httpClient, BaseURL: baseURL, UserAgent: userAgent}
