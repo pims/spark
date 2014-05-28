@@ -21,17 +21,29 @@ Available commands are:
     exec          Calls a function exposed by the core
     info          Displays basic information about the given Core
     invalidate    Invalidates an access token. Requires username/password
-    login         Log in spark cloud
+    login         Log in to spark cloud
+    logout        Logout from spark cloud
     read          Reads the value of variables exposed by the spark core
     rename        Renames a core
-    tokens        List all access tokens
+    tokens        List all access tokens. Requires username/password
 ```
 
 For example, to rename your core:
 
 ```sh
-$ spark rename 53ff73065075582132181487 new_name
-Successfully renamed core 53ff73065075582132181487 to new_name
+$ spark devices
+Error connecting to Spark cloud: You should login first.
+
+$ spark login
+Username:  me@example.com
+Password: 
+Successfully logged in. Access token persisted to: ~/.sparkio
+
+$ spark devices
+- Device: spork [53dd73045076535132181487], connected?: false
+
+$ spark rename 53dd73045076535132181487 new_name
+Successfully renamed core 53dd73045076535132181487 to new_name
 ```
 
 

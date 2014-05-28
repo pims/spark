@@ -25,6 +25,11 @@ func init() {
 				Ui: ui,
 			}, nil
 		},
+		"logout": func() (cli.Command, error) {
+			return &command.LogoutCommand{
+				Ui: ui,
+			}, nil
+		},
 
 		"rename": func() (cli.Command, error) {
 			return &command.RenameCommand{
