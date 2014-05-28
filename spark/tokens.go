@@ -36,7 +36,7 @@ func (s *TokensService) Login(username, password string) (AccessToken, *http.Res
 	data.Set("username", username)
 	data.Set("password", password)
 	data.Set("grant_type", "password")
-	data.Set("client_id", "github.com/pims/spark")
+	data.Set("client_id", "gospark")
 	data.Set("client_secret", "client_secret_here")
 
 	body := bytes.NewBufferString(data.Encode())
