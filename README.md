@@ -11,19 +11,20 @@ This CLI aims to eventually be a full replacement for spark-cli.
 
 ## Example usage
 
-```sh
+```
 $ spark
 usage: spark [--help] <command> [<args>]
 
 Available commands are:
-    claim      Claims a spark core
-    devices    Lists devices for authenticated user
-    exec       Calls a function exposed by the core
-    info       Displays basic information about the given Core
-    login      Log in spark cloud
-    read       Reads the value of variables exposed by the spark core
-    rename     Renames a core
-    tokens     List all access tokens
+    claim         Claims a spark core
+    devices       Lists devices for authenticated user
+    exec          Calls a function exposed by the core
+    info          Displays basic information about the given Core
+    invalidate    Invalidates an access token. Requires username/password
+    login         Log in spark cloud
+    read          Reads the value of variables exposed by the spark core
+    rename        Renames a core
+    tokens        List all access tokens
 ```
 
 For example, to rename your core:
