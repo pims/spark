@@ -30,7 +30,11 @@ Available commands are:
 
 For example, to rename your core:
 
-```sh
+```
+$ spark -v
+spark v0.1.2
+Using spark cloud API v1
+
 $ spark devices
 Error connecting to Spark cloud: You should login first.
 
@@ -44,6 +48,22 @@ $ spark devices
 
 $ spark rename 53dd73045076535132181487 new_name
 Successfully renamed core 53dd73045076535132181487 to new_name
+
+
+$ spark info 53dd73045076535132181487
+Info for spork [53dd73045076535132181487]
+Variables:
+ - temperature : int32
+ - hello : string
+Functions:
+ - led
+ - temp
+
+$ spark read 53dd73045076535132181487 temperature
+temperature = 120.000000
+
+$ spark exec 53dd73045076535132181487 temp 90
+Command “temp” with arguments “90” was successfully executed on core spork[53dd73045076535132181487].
 ```
 
 
