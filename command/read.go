@@ -39,8 +39,13 @@ func (c *ReadCommand) Run(args []string) int {
 		return 1
 	}
 
-	variable, _, err := client.Devices.Read(coreId, varName)
+	variable, resp, err := client.Devices.Read(coreId, varName)
 	if err != nil {
+		if resp.StatusCode == 404 {
+			c.Ui.Error(fmt.Sprintf("%s is not available on your spark core [%s]", varName, coreId))
+			return 1
+		}
+
 		c.Ui.Error(fmt.Sprintf("Failed reading variable: %s", err))
 		return 1
 	}

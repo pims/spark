@@ -62,6 +62,10 @@ func (c *ExecCommand) Run(args []string) int {
 
 	exec, resp, err := client.Devices.Exec(coreId, funcName, arguments)
 	if err != nil {
+		if resp.StatusCode == 404 {
+			c.Ui.Error(fmt.Sprintf("%s is not available on your spark core [%s]", funcName, coreId))
+			return 1
+		}
 		c.Ui.Error(fmt.Sprintf("Failed executing function: %s", err))
 		c.Ui.Error(fmt.Sprintf("Response: %s", resp))
 		return 1
