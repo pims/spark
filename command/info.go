@@ -23,6 +23,13 @@ Usage: spark info {coreId}
 }
 
 func (c *InfoCommand) Run(args []string) int {
+	if len(args) != 1 {
+		c.Ui.Error("A coreId must be specified.")
+		c.Ui.Error("")
+		c.Ui.Error(c.Help())
+		return 1
+	}
+
 	coreId := args[0]
 
 	client, err := AuthenticatedSparkClient(true)
