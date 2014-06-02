@@ -31,12 +31,23 @@ func (c *InfoCommand) Run(args []string) int {
 		return 1
 	}
 
-	info, _, err := client.Devices.Info(coreId)
+	info, resp, err := client.Devices.Info(coreId)
 	if err != nil {
 		c.Ui.Error(fmt.Sprintf("Failed retrieving info: %s", err))
+		c.Ui.Error(fmt.Sprintf("Response: %s", resp))
 		return 1
 	}
-	c.Ui.Output(fmt.Sprintf("%v", info))
+
+	c.Ui.Info(fmt.Sprintf("Info for %s [%s]", info.Name, info.Id))
+	c.Ui.Info("Variables:")
+	for varName, varType := range info.Variables {
+		c.Ui.Info(fmt.Sprintf(" - %s : %s", varName, varType))
+	}
+
+	c.Ui.Info("Functions:")
+	for _, funcName := range info.Functions {
+		c.Ui.Info(fmt.Sprintf(" - %s", funcName))
+	}
 	return 0
 }
 

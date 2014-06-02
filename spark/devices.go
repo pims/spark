@@ -24,14 +24,22 @@ func (d Device) String() string {
 }
 
 type Info struct {
-	Name      string   `json:"name,omitempty"`
-	Id        string   `json:"id,omitempty"`
-	Variables []string `json:"variables,omitempty"`
-	Functions []string `json:"functions,omitempty"`
+	Name      string            `json:"name,omitempty"`
+	Id        string            `json:"id,omitempty"`
+	Variables map[string]string `json:"variables,omitempty"`
+	Functions []string          `json:"functions,omitempty"`
 }
 
-func (i Info) String() string {
-	return fmt.Sprintf("Info for %s [%s]\n variables: %s\n functions: %s\n", i.Name, i.Id, i.Variables, i.Functions)
+type ExecResponse struct {
+	Device
+	ReturnValue int `json:"return_value,omitempty"`
+}
+
+type ReadResponse struct {
+	Device  Device `json:"coreInfo,omitempty"`
+	Command string
+	Name    string
+	Result  interface{}
 }
 
 func (s *DevicesService) List() ([]Device, *http.Response, error) {
@@ -79,29 +87,30 @@ func (s *DevicesService) Info(coreId string) (Info, *http.Response, error) {
 	return *info, resp, err
 }
 
-func (s *DevicesService) Read(coreId, varName string) (string, *http.Response, error) {
+func (s *DevicesService) Read(coreId, varName string) (ReadResponse, *http.Response, error) {
 	path := fmt.Sprintf("v1/devices/%s/%s", coreId, varName)
 	req, err := s.client.NewRequest("GET", path, nil)
 
 	if err != nil {
-		return "", nil, err
+		return ReadResponse{}, nil, err
 	}
 
-	var stuff string
-	resp, err := s.client.Do(req, stuff)
-	return stuff, resp, err
+	readResponse := new(ReadResponse)
+	resp, err := s.client.Do(req, readResponse)
+	return *readResponse, resp, err
 }
 
-func (s *DevicesService) Exec(coreId, funcName string) (*http.Response, error) {
+func (s *DevicesService) Exec(coreId, funcName, params string) (ExecResponse, *http.Response, error) {
 	data := url.Values{}
-	data.Set("func", funcName)
+	data.Set("params", params)
 	body := bytes.NewBufferString(data.Encode())
 	path := fmt.Sprintf("v1/devices/%s/%s", coreId, funcName)
 	req, err := s.client.NewRequest("POST", path, body)
 
 	if err != nil {
-		return nil, err
+		return ExecResponse{}, nil, err
 	}
-	resp, err := s.client.Do(req, nil)
-	return resp, err
+	exec := new(ExecResponse)
+	resp, err := s.client.Do(req, exec)
+	return *exec, resp, err
 }

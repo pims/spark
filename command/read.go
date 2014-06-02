@@ -39,15 +39,32 @@ func (c *ReadCommand) Run(args []string) int {
 		return 1
 	}
 
-	value, _, err := client.Devices.Read(coreId, varName)
+	variable, _, err := client.Devices.Read(coreId, varName)
 	if err != nil {
-		c.Ui.Error(fmt.Sprintf("Failed reading variable value: %s", err))
+		c.Ui.Error(fmt.Sprintf("Failed reading variable: %s", err))
 		return 1
 	}
-	c.Ui.Output(fmt.Sprintf("%s = %s on %s", varName, value, coreId))
+
+	var res string
+	switch v := variable.Result.(type) {
+	case int:
+		// v is an int here, so e.g. v + 1 is possible.
+		res = fmt.Sprintf("%d", v)
+	case float64:
+		// v is a float64 here, so e.g. v + 1.0 is possible.
+		res = fmt.Sprintf("%f", v)
+	case string:
+		// v is a string here, so e.g. v + " Yeah!" is possible.
+		res = fmt.Sprintf("%s", v)
+	default:
+		c.Ui.Error("Unknown result type")
+		return 1
+	}
+
+	c.Ui.Output(fmt.Sprintf("%s = %s", varName, res))
 	return 0
 }
 
 func (c *ReadCommand) Synopsis() string {
-	return "Reads the value of variables exposed by the spark core"
+	return "Reads the value of variables exposed by spark core"
 }
