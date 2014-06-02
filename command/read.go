@@ -53,13 +53,10 @@ func (c *ReadCommand) Run(args []string) int {
 	var res string
 	switch v := variable.Result.(type) {
 	case int:
-		// v is an int here, so e.g. v + 1 is possible.
 		res = fmt.Sprintf("%d", v)
 	case float64:
-		// v is a float64 here, so e.g. v + 1.0 is possible.
 		res = fmt.Sprintf("%f", v)
 	case string:
-		// v is a string here, so e.g. v + " Yeah!" is possible.
 		res = fmt.Sprintf("%s", v)
 	default:
 		c.Ui.Error("Unknown result type")
