@@ -76,5 +76,11 @@ func init() {
 				Ui: ui,
 			}, nil
 		},
+		"version": func() (cli.Command, error) {
+			return &command.VersionCommand{
+				Version: Version,
+				Ui:      ui,
+			}, nil
+		},
 	}
 }
