@@ -46,12 +46,11 @@ type SparkClient struct {
 // provided, http.DefaultClient will be used.  To use API methods which require
 // authentication, provide an http.Client that will perform the authentication
 // for you (such as that provided by the goauth2 library).
-func NewClient(httpClient *http.Client) *SparkClient {
+func NewClient(httpClient *http.Client, timeout time.Duration) *SparkClient {
 	if httpClient == nil {
 		httpClient = &http.Client{
 			Transport: &http.Transport{
 				Dial: func(network, addr string) (net.Conn, error) {
-					timeout := time.Duration(5 * time.Second)
 					conn, err := net.DialTimeout(network, addr, timeout)
 					if err != nil {
 						return nil, err
