@@ -4,6 +4,8 @@ import (
 	"errors"
 	"github.com/pims/spark/spark"
 	"io/ioutil"
+	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -23,7 +25,9 @@ func AuthenticatedSparkClient(auth bool) (*spark.SparkClient, error) {
 func AuthenticatedSparkClientWithTimeout(auth bool, timeout time.Duration) (*spark.SparkClient, error) {
 	c := spark.NewClient(nil, timeout)
 	if auth {
-		bytes, err := ioutil.ReadFile(SettingsFileName)
+		home := os.Getenv("HOME")
+		settingsPath := filepath.Join(home, SettingsFileName)
+		bytes, err := ioutil.ReadFile(settingsPath)
 		if err != nil {
 			return nil, err
 		}
